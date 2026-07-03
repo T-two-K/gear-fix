@@ -1,0 +1,401 @@
+﻿<UserControl x:Class="GearFix.Views.MapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GearFix.Views"
+             xmlns:wv="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="850" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <Style x:Key="AccentButton" TargetType="Button">
+            <Setter Property="Foreground" Value="#5CCCCC"/>
+            <Setter Property="Background" Value="#161B27"/>
+            <Setter Property="BorderBrush" Value="#009999"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Btn"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Btn" Property="Background" Value="#1C4C4C"/>
+                                <Setter TargetName="Btn" Property="BorderBrush" Value="#5CCCCC"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Btn" Property="Background" Value="#0D3333"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Btn" Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BackButton" TargetType="Button" BasedOn="{StaticResource AccentButton}">
+            <Setter Property="Foreground" Value="#8E98B0"/>
+            <Setter Property="BorderBrush" Value="#2A3050"/>
+            <Setter Property="Background" Value="#161B27"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Btn"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Btn" Property="Background" Value="#1D2130"/>
+                                <Setter TargetName="Btn" Property="BorderBrush" Value="#5A6279"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Btn" Property="Background" Value="#13161F"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DarkTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#1D2130"/>
+            <Setter Property="Foreground" Value="#EAEAEA"/>
+            <Setter Property="BorderBrush" Value="#2A3050"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,7"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="CaretBrush" Value="#5CCCCC"/>
+            <Setter Property="SelectionBrush" Value="#009999"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Root" Property="BorderBrush" Value="#009999"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="BorderBrush" Value="#3A7070"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TealSlider" TargetType="Slider">
+            <Setter Property="Foreground" Value="#009999"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Track x:Name="PART_Track" Grid.Row="1">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="Slider.DecreaseLarge">
+                                        <RepeatButton.Template>
+                                            <ControlTemplate TargetType="RepeatButton">
+                                                <Border Height="4" Background="#009999" CornerRadius="2"/>
+                                            </ControlTemplate>
+                                        </RepeatButton.Template>
+                                    </RepeatButton>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="Slider.IncreaseLarge">
+                                        <RepeatButton.Template>
+                                            <ControlTemplate TargetType="RepeatButton">
+                                                <Border Height="4" Background="#252B3A" CornerRadius="2"/>
+                                            </ControlTemplate>
+                                        </RepeatButton.Template>
+                                    </RepeatButton>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Ellipse Width="14" Height="14"
+                                                         Fill="#5CCCCC"
+                                                         Stroke="#009999"
+                                                         StrokeThickness="2"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                Background="#0F1117"
+                BorderBrush="#1E2435"
+                BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Padding="20,20,20,16" BorderBrush="#1E2435" BorderThickness="0,0,0,1">
+                    <StackPanel>
+                        <TextBlock Text="НАВИГАЦИЯ"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Foreground="#009999"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock Text="Поиск автосервисов"
+                                   FontSize="18"
+                                   FontWeight="Light"
+                                   Foreground="#EAEAEA"/>
+                    </StackPanel>
+                </Border>
+
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto"
+                              Padding="20,16,20,16">
+                    <StackPanel>
+
+                        <Border Background="#161B27"
+                                CornerRadius="8"
+                                Padding="14,12"
+                                Margin="0,0,0,12">
+                            <StackPanel>
+                                <TextBlock Text="ПОИСК ПО ЗАПРОСУ"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           Foreground="#5A6279"
+                                           Margin="0,0,0,10"/>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="8"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox Grid.Column="0"
+                                             x:Name="SearchQueryBox"
+                                             Style="{StaticResource DarkTextBox}"
+                                             Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                                             Tag="Введите адрес или район...">
+                                        <TextBox.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="6"/>
+                                            </Style>
+                                        </TextBox.Resources>
+                                    </TextBox>
+
+                                    <Button Grid.Column="2"
+                                            IsDefault="True"
+                                            Style="{StaticResource AccentButton}"
+                                            Content="🔍"
+                                            FontSize="14"
+                                            Padding="10,7"
+                                            Command="{Binding SearchByQueryCommand}"
+                                            ToolTip="Найти по запросу"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#161B27"
+                                CornerRadius="8"
+                                Padding="14,12"
+                                Margin="0,0,0,12">
+                            <StackPanel>
+                                <TextBlock Text="ПОИСК РЯДОМ СО МНОЙ"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           Foreground="#5A6279"
+                                           Margin="0,0,0,10"/>
+
+                                <!-- Радиус -->
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="Радиус поиска"
+                                                   FontSize="12"
+                                                   Foreground="#8E98B0"/>
+                                        <Border Grid.Column="1"
+                                                Background="#0F1117"
+                                                CornerRadius="4"
+                                                Padding="8,2">
+                                            <TextBlock FontSize="12"
+                                                       FontWeight="Bold"
+                                                       Foreground="#5CCCCC">
+                                                <Run Text="{Binding SearchRadius, StringFormat='{}{0}'}"/>
+                                                <Run Text=" км"/>
+                                            </TextBlock>
+                                        </Border>
+                                    </Grid>
+
+                                    <Slider Grid.Row="2"
+                                            Style="{StaticResource TealSlider}"
+                                            Minimum="1" Maximum="40"
+                                            Value="{Binding SearchRadius}"
+                                            TickFrequency="1"
+                                            IsSnapToTickEnabled="True"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="Макс. результатов"
+                                                   FontSize="12"
+                                                   Foreground="#8E98B0"/>
+                                        <Border Grid.Column="1"
+                                                Background="#0F1117"
+                                                CornerRadius="4"
+                                                Padding="8,2">
+                                            <TextBlock Text="{Binding MaxResults}"
+                                                       FontSize="12"
+                                                       FontWeight="Bold"
+                                                       Foreground="#5CCCCC"/>
+                                        </Border>
+                                    </Grid>
+
+                                    <Slider Grid.Row="2"
+                                            Style="{StaticResource TealSlider}"
+                                            Minimum="1" Maximum="100"
+                                            Value="{Binding MaxResults}"
+                                            TickFrequency="1"
+                                            IsSnapToTickEnabled="True"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Button Style="{StaticResource AccentButton}"
+                                Command="{Binding ShowMyLocationCommand}"
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="◎  " FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Text="Моё местоположение" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource AccentButton}"
+                                Command="{Binding FindNearbyCommand}"
+                                Margin="0 0 0 8"
+                                HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚙  " FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Text="Найти ближайшие СТО" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource AccentButton}"
+                                Command="{Binding ClearMapCommand}"
+                                HorizontalAlignment="Stretch"
+                                Foreground="Gray">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🗑️  " FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Text="Очистить карту" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Border Grid.Row="2"
+                        Padding="20,12"
+                        BorderBrush="#1E2435"
+                        BorderThickness="0,1,0,0">
+                    <Button Style="{StaticResource BackButton}"
+                            IsCancel="True"
+                            Command="{Binding BackToHomePageCommand}"
+                            HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="← " FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="Назад в главное меню" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="1">
+            <wv:WebView2 x:Name="MapWebView"
+                          Source="about:blank"/>
+
+            <Border x:Name="MapLoadingOverlay"
+                    Background="#0F1117"
+                    Visibility="{Binding IsMapLoading,
+                                 Converter={StaticResource BoolToVis}}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="🗺"
+                               Foreground="#0CCCCC"
+                               FontSize="48"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,16"
+                               Opacity="0.5"/>
+                    <TextBlock Text="Загрузка карты..."
+                               FontSize="14"
+                               Foreground="#5A6279"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+    </Grid>
+</UserControl>

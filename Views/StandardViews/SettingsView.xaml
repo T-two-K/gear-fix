@@ -1,0 +1,237 @@
+﻿<UserControl x:Class="GearFix.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GearFix.Views"
+             mc:Ignorable="d">
+
+    <Border MaxHeight="600" MaxWidth="600"
+            CornerRadius="18"
+            Background="#1C1C2E"
+            BorderBrush="#A64B00"
+            BorderThickness="1.5">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" BlurRadius="40"
+                              ShadowDepth="8" Opacity="0.45"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    Background="{StaticResource HeaderBack}"
+                    CornerRadius="16,16,0,0">
+                <Grid Margin="16,0,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Margin="14,0,0,0">
+                        <TextBlock Text="Настройки"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                        <TextBlock Text="Настрой приложение под себя"
+                                   FontSize="11"
+                                   Foreground="White"
+                                   Opacity="0.55"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          Padding="20,20,20,20">
+                <StackPanel>
+                    <TextBlock Text="ИИ ПРОВАЙДЕРЫ"
+                               Foreground="{StaticResource ClueBack}"
+                               FontSize="10"
+                               FontWeight="Bold"
+                               Margin="4,0,0,10"/>
+
+                    <Border CornerRadius="12"
+                            Background="#2A2A3E"
+                            BorderBrush="#3A3A55"
+                            BorderThickness="1"
+                            Margin="0,0,0,20">
+
+                        <StackPanel>
+                            <Grid Margin="16,14,16,14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0"
+                                        Width="38" Height="38"
+                                        CornerRadius="10"
+                                        Background="{StaticResource ClueBack}"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="✦" FontSize="17"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="{StaticResource HeaderBack}"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Google Gemini"
+                                               FontSize="18" FontWeight="SemiBold"
+                                               Foreground="White"/>
+                                    <TextBlock Text="{Binding GeminiApiKey}"
+                                               Foreground="Gray"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                            VerticalAlignment="Center">
+                                    <Button Content="Изменить"
+                                            FontSize="11" Padding="10,6"
+                                            Margin="5 0"
+                                            Command="{Binding EditGeminiKeyCommand}"/>
+                                    <Button Content="✕" FontSize="11"
+                                            Style="{StaticResource DeleteButton}"
+                                            Width="32" Height="32" Padding="0"
+                                            Command="{Binding DeleteGeminiKeyCommand}">
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="БЕЗОПАСНОСТЬ"
+                               Foreground="{StaticResource ClueBack}"
+                               FontSize="10" FontWeight="Bold"
+                               Margin="4,0,0,10"/>
+
+                    <Border CornerRadius="12"
+                            Background="#2A2A3E"
+                            BorderBrush="#3A3A55"
+                            BorderThickness="1"
+                            Margin="0,0,0,20">
+                        <StackPanel>
+
+                            <!-- Пароль -->
+                            <Grid Margin="16,14,16,14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="38" Height="38"
+                                        CornerRadius="10" Background="{StaticResource ClueBack}"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="🔑" FontSize="17"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Пароль приложения"
+                                               FontSize="13" FontWeight="SemiBold"
+                                               Foreground="White"/>
+                                    <TextBlock Text="Изменение мастер-пароля"
+                                               FontSize="11" Foreground="#888"
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="2" Content="Поменять"
+                                        FontSize="11" Padding="12,6"
+                                        Margin="5 0"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding ChangePasswordCommand}"/>
+                            </Grid>
+
+                            <Border Height="1" Background="#3A3A55" Margin="16,0"/>
+
+                            <Grid Margin="16,14,16,14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="38" Height="38"
+                                        CornerRadius="10" Background="{StaticResource ErrorColor}"
+                                        Margin="0,0,12,0">
+                                    <TextBlock Text="🗑" FontSize="17"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="Удалить все данные"
+                                               FontSize="13" FontWeight="SemiBold"
+                                               Foreground="{StaticResource ErrorColor}"/>
+                                    <TextBlock Text="Безвозвратно удалит все данные приложения"
+                                               FontSize="11" Foreground="#888"
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <Button Style="{StaticResource DeleteButton}"
+                                        Grid.Column="2" Content="Удалить"
+                                        FontSize="11" Padding="12,6"
+                                        Margin="5 0"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding DeleteAllDataCommand}"/>
+
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="О ПРИЛОЖЕНИИ"
+                               Foreground="{StaticResource ClueBack}"
+                               FontSize="10" FontWeight="Bold"
+                               Margin="4,0,0,10"/>
+
+                    <Border CornerRadius="12"
+                            Background="#2A2A3E"
+                            BorderBrush="#3A3A55"
+                            BorderThickness="1">
+                        <Grid Margin="16,14,16,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Width="38" Height="38"
+                                    CornerRadius="10"
+                                    Background="{StaticResource ClueBack}"
+                                    Margin="0,0,12,0">
+                                <TextBlock Text="⚙" FontSize="17"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource HeaderBack}"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="GearFix"
+                                           FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White"/>
+                                <TextBlock FontSize="11" Foreground="#888" Margin="0,2,0,0">
+                                    <Run Text="Версия"/>
+                                    <Run Text="1.0.0"
+                                         Foreground="{StaticResource ClueBack}"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Button Margin="60 10"
+                            IsCancel="True"
+                            MinHeight="50"
+                            Content="🏠 Назад в меню"
+                            FontSize="18"
+                            Padding="0"
+                            Command="{Binding BackHomePageCommand}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

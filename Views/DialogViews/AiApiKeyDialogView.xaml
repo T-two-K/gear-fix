@@ -1,0 +1,147 @@
+﻿<Window x:Class="GearFix.Views.DialogViews.AiApiKeyDialogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GearFix.Views.DialogViews"
+        mc:Ignorable="d"
+        Title="GearFix — Setup"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#F5EFE6"
+        SizeToContent="Height"
+        MaxWidth="400"
+        FontFamily="Segoe UI">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <Border Grid.Row="0" Background="{StaticResource HeaderBack}">
+            <StackPanel VerticalAlignment="Center" Margin="32,0">
+                <TextBlock Text="⚙ GearFix"
+                           Foreground="White"
+                           FontSize="28"
+                           FontWeight="Bold"/>
+                <TextBlock Text="Подключите вашего ИИ помощника, чтобы начать"
+                           Foreground="White"
+                           Opacity="0.6"
+                           FontSize="13"
+                           Margin="0,6,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Контент -->
+        <StackPanel Grid.Row="1" Margin="32,28,32,28">
+
+            <!-- Выбор провайдера -->
+            <TextBlock Text="ИИ ПРОВАЙДЕР"
+                       Style="{StaticResource FieldLabel}"
+                       Margin="0,0,0,8"/>
+
+
+            <Border Grid.Column="0"
+                        Margin="0,0,0,20"
+                        x:Name="GeminiCard"
+                        CornerRadius="12"
+                        BorderThickness="2"
+                        BorderBrush="{StaticResource ButtonBack}"
+                        Background="White"
+                        Padding="14,12"
+                        Cursor="Hand">
+                <StackPanel>
+                    <TextBlock Text="✦ Gemini"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource HeaderBack}"/>
+                    <TextBlock Text="Google · Бесплатный план"
+                                   FontSize="11"
+                                   Foreground="#999"
+                                   Margin="0,3,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Поле ввода ключа -->
+            <TextBlock Text="API КЛЮЧ"
+                       Style="{StaticResource FieldLabel}"
+                       Margin="0,0,0,8"/>
+
+            <Grid Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        CornerRadius="10"
+                        BorderBrush="{StaticResource ButtonBack}"
+                        BorderThickness="2"
+                        Background="White">
+                    <TextBox x:Name="ApiKeyBox"
+                                 Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 ScrollViewer.CanContentScroll="True"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                 Background="Transparent"
+                                 Foreground="#2D2D2D"
+                                 FontSize="14"
+                                 Padding="12,10"/>
+                </Border>
+
+                <!--Кнопка показать/скрыть 
+                <Button Grid.Column="2"
+                        Width="40" Height="60"
+                        Content="👁"
+                        FontSize="16"
+                        Background="White"
+                        BorderThickness="2"
+                        BorderBrush="#E0D5C8"
+                        Command="{Binding ToggleKeyVisibilityCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>-->
+            </Grid>
+
+            <!-- Ссылка на получение ключа -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
+                <TextBlock Text="Нет ни одного ключа? "
+                           Foreground="#999"
+                           FontSize="12"/>
+                <TextBlock FontSize="12"
+                           Cursor="Hand">
+                    <Hyperlink NavigateUri="https://aistudio.google.com/apikey"
+                               Command="{Binding OpenApiKeyPageCommand}"
+                               CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
+                               Foreground="{StaticResource ButtonBack}"
+                               TextDecorations="Underline">
+                        Посмотрите здесь →
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+            <Button IsDefault="True" Content="Подключить и продолжить →"
+                    FontSize="15"
+                    Padding="0,14"
+                    Command="{Binding ConnectCommand}"/>
+            <TextBlock Text="Окно можно закрыть, но тогда вам будет доступен не весь функционал приложения."
+                       Foreground="{StaticResource BorderBrush}"
+                       TextWrapping="Wrap"
+                       Opacity="0.6"
+                       FontSize="9"
+                       Margin="0,6,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

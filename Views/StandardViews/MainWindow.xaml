@@ -1,0 +1,13 @@
+﻿<Window x:Class="GearFix.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GearFix.Views"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Background="#F5EFE6">
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+    </Grid>
+</Window>

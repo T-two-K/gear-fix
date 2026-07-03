@@ -1,0 +1,198 @@
+﻿<Window x:Class="GearFix.Views.DialogViews.DetailedDescriptionMalcfunctionDialogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GearFix.Views.DialogViews"
+        mc:Ignorable="d"
+        Title="DetailedDescriptionMalcfunctionDialogView" 
+        WindowStartupLocation="CenterScreen" Height="450" Width="800">
+    <Window.Resources>
+        <SolidColorBrush x:Key="BgBrush" Color="#0F1117"/>
+        <SolidColorBrush x:Key="CardBrush" Color="#161B27"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#009999"/>
+        <SolidColorBrush x:Key="AccentLightBrush" Color="#5CCCCC"/>
+        <SolidColorBrush x:Key="TextMainBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#A5B0C2"/>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NavigationBackButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="0,5,10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource AccentLightBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button IsCancel="True"
+                Content="← НАЗАД К СПИСКУ" 
+                Grid.Column="0"
+                Style="{StaticResource NavigationBackButtonStyle}"
+                Command="{Binding BackCommand}"
+                HorizontalAlignment="Left" 
+                Margin="0,0,0,15"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="12" Margin="0,0,10,0" Padding="25">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title, FallbackValue='Название неисправности'}" 
+                                   Foreground="{StaticResource TextMainBrush}" FontSize="24" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,20"/>
+
+                        <Grid Margin="0,0,0,25">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="ВЕРОЯТНОСТЬ" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                                <Grid>
+                                    <ProgressBar Value="{Binding Probability, FallbackValue=75}" Minimum="0" Maximum="100" Height="8" BorderThickness="0" Background="#1E2536" Foreground="{StaticResource AccentLightBrush}"/>
+                                </Grid>
+                                <TextBlock Text="{Binding Probability, StringFormat={}{0}%}" Foreground="{StaticResource AccentLightBrush}" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,5,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="УРОВЕНЬ ОПАСНОСТИ" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                                <Grid>
+                                    <ProgressBar Value="{Binding Danger, FallbackValue=90}" Minimum="0" Maximum="100" Height="8" BorderThickness="0" Background="#1E2536"
+                                                 Foreground="{Binding Danger, Converter={StaticResource DangerToColor}}"/>
+                                </Grid>
+                                <TextBlock Text="{Binding Danger, StringFormat={}{0}/100}" Foreground="#FF4C4C" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="ОПИСАНИЕ ПРОБЛЕМЫ" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <TextBlock Text="{Binding MalfunctionDescription, FallbackValue='Здесь будет подробное описание неисправности от нейросети...'}" 
+                                   Foreground="{StaticResource TextMainBrush}" FontSize="15" TextWrapping="Wrap" LineHeight="22" Margin="0,0,0,25"/>
+
+                        <TextBlock Text="ПРИЧИНА ДИАГНОСТИРОВАНИЯ" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <TextBlock Text="{Binding Explanation, FallbackValue='Здесь будет детальное объяснение причин возникновения ошибки...'}" 
+                                   Foreground="{StaticResource TextMainBrush}" FontSize="15" TextWrapping="Wrap" LineHeight="22"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Grid Grid.Column="1" Margin="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                    <TextBlock Text="ВВЕДИТЕ БЛИЖАЙШИЙ ГОРОД" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                    <TextBox Background="{StaticResource CardBrush}" Text="{Binding NearestCity, UpdateSourceTrigger=PropertyChanged}"
+                             Foreground="{StaticResource TextMainBrush}" 
+                             BorderBrush="#2A3245" BorderThickness="1" Padding="12,10" FontSize="15" Margin="0,0,0,15"
+                             CaretBrush="{StaticResource AccentLightBrush}">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+                    <Button IsDefault="True"
+                            Command="{Binding FindCarServicesCommand}"
+                            Content="НАЙТИ БЛИЖАЙШИЕ СТО" Background="{StaticResource AccentBrush}"
+                            Foreground="White" 
+                            FontSize="14" FontWeight="Bold" Padding="0,12" BorderThickness="0" Cursor="Hand">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="6"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+                <ListBox Grid.Row="1" Background="Transparent" BorderThickness="0" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ItemsSource="{Binding CarServices}"
+                         d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15" BorderBrush="#2A3245" BorderThickness="1" Margin="0,0,10,0">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" 
+                                               Foreground="{StaticResource TextMainBrush}" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"/>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="{Binding Address}" VerticalAlignment="Center"
+                                                   Foreground="{StaticResource TextMutedBrush}" FontSize="13" Margin="0,0,0,10"/>
+
+                                        <Button Grid.Column="1" Content="📚" Padding="10"
+                                                Command="{Binding DataContext.CopyCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                CommandParameter="{Binding}"/>
+                                    </Grid>
+                                    <ItemsControl ItemsSource="{Binding Rubrics}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#1E2536" CornerRadius="4" Padding="8,4" Margin="0,0,5,5">
+                                                    <TextBlock Text="{Binding}" Foreground="{StaticResource AccentLightBrush}" FontSize="11" FontWeight="SemiBold"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
