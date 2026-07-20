@@ -70,3 +70,8 @@ At the end of development, minor bugs and errors were fixed, after which manual 
   dotnet run
 ```
 ## 💡 How to use it
+After launch, a password creation window will be displayed. The password will protect the user's API keys and vehicle data from third-party access.
+<div align="center">
+  <h3>Create password window</h3>
+  <img src="UiScreenshots/RegistrationWindow.png" alt="Design of create password window" >
+</div>
