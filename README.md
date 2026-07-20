@@ -73,5 +73,80 @@ At the end of development, minor bugs and errors were fixed, after which manual 
 After launch, a password creation window will be displayed. The password will protect the user's API keys and vehicle data from third-party access.
 <div align="center">
   <h3>Create password window</h3>
-  <img src="UiScreenshots/RegistrationWindow.png" alt="Design of create password window" >
+  <img src="UiScreenshots/CreatePasswordWindow.png" alt="Create password window design" >
 </div>
+Below is a login window, it will be displayed if the user has already created a password and re-launched the application.
+<div align="center">
+  <h3>Login window</h3>
+  <img src="UiScreenshots/EnterPasswordWindow.png" alt="Login window design" >
+</div>
+Regardless of which window the user navigates from (the creation window or the password entry window), the API key entry window will appear if the API key hasn't been entered previously. Otherwise, the window won't appear. This API key is required for the AI ​​consultant to function correctly.
+<div align="center">
+  <h3>Enter API key window</h3>
+  <img src="UiScreenshots/EnterApiKeyWindow.png" alt="Enter api key window design" >
+</div>
+To quickly find the required API key, there's a "View here" link on the form. Clicking this opens the official Google website, which displays the API keys for Gemini (this key will not be available in the CIS region; a VPN must be enabled for proper access). This key must be copied and pasted into the appropriate field. To save the key and gain access to the AI ​​consultant, click "Connect and continue." You don't have to enter the API key; simply close the window. However, doing so will limit access to the AI ​​consultant. The key can always be changed in the settings window.
+After entering and confirming the API key, or by simply closing the API key entry window, the user will be greeted with the application's main menu.
+<div align="center">
+  <h3>Main menu window</h3>
+  <img src="UiScreenshots/MainMenuWindow.png" alt="Main menu window design" >
+</div>
+In the app's main window, users can add, delete, and edit their vehicle records. To add a vehicle to the vehicle list, click the "Add Vehicle" button. A dialog box for creating a vehicle record will then appear.
+<div align="center">
+  <h3>Edit car info window</h3>
+  <img src="UiScreenshots/EditCarInfoWindow.png" alt="Edit car information window design" >
+</div>
+To successfully create a record, you must fill in the required fields: "Make," "Model," and "Year." The remaining fields are optional, as the user desires to receive the most accurate diagnosis from the AI ​​consultant. The "Image" field serves a decorative purpose and is intended to visually display the vehicle's profile in the main menu. In this window, the user can also add, delete, and edit records of any vehicle malfunctions throughout its lifetime. The window for editing and adding malfunctions is shown below.
+<div align="center">
+  <h3>Edit malfunction window</h3>
+  <img src="UiScreenshots/EditMalfunctionInfoWindow.png" alt="Edit mulfunction window design" >
+</div>
+To successfully add a new malfunction, you must fill in the fields with the name and brief description of the malfunction, as well as correctly indicate the malfunction date.
+After filling in all the required fields and clicking the "Add" button, the vehicle card with brief information about the vehicle will appear in the main menu.
+<div align="center">
+  <h3>Car card</h3>
+  <img src="UiScreenshots/CarCard.png" alt="Car card design" >
+</div>
+By clicking on the vehicle card, the user will see a window with detailed information about the selected vehicle.
+<div align="center">
+  <h3>View car info window</h3>
+  <img src="UiScreenshots/ViewCarInfoWindow.png" alt="Window with a car info design" >
+</div>
+When you click the "Diagnostics" button, a dialogue window with an AI consultant will open in front of the user.
+<div align="center">
+  <h3>Diagnostic window</h3>
+  <img src="UiScreenshots/DiagnosticWindow.png" alt="Diagnostic window design" >
+</div>
+Before communicating with the AI, you must select the vehicle you want to diagnose. You can then select "Use NHTSA," which increases the chance of an accurate diagnosis (valid only if at least one record is found). Next, you can select the model for which you want to receive advice, then enter your symptoms in the query field and submit them. If the model has sufficient data, it will return a special response with suggested diagnoses. For detailed diagnosis information, click the "View Diagnosis" button.
+<div align="center">
+  <h3>AI answer card</h3>
+  <img src="UiScreenshots/AIAnswerCard.png" alt="Ai answer card design" >
+</div>
+After clicking the "View Diagnosis" button, the user will see a window with a description of the possible malfunctions that could occur with the user's machine.
+<div align="center">
+  <h3>Diagnos list window</h3>
+  <img src="UiScreenshots/ListOfDiagnosesWindow.png" alt="Diagnos list window design" >
+</div>
+Here you can see the probability, danger, name, and brief description of the suspected malfunction. The user can also select one of the malfunctions and click the "Confirm Selection" button; in this case, another error entry will be added to the vehicle's list of malfunctions. For more detailed information about the malfunction, click the "More Details" button, which will open a window with detailed information about the error.
+<div align="center">
+  <h3>Detailed diagnos info window</h3>
+  <img src="UiScreenshots/DetailedDiagnosInfoWindow.png" alt="Ditailed diagnose info window design" >
+</div>
+In this window, you can also see why the AI ​​consultant suggested a particular problem, and you can also enter the nearest city to the user to quickly find the appropriate service centers that can resolve the issue.
+Return to the main menu. Clicking the "Find a service station on the map" button will open a map window where you can find service stations and other car repair and diagnostic facilities using the search bar.
+<div align="center">
+  <h3>Map window</h3>
+  <img src="UiScreenshots/MapWindow.png" alt="Map window design" >
+</div>
+Users can also find auto repair shops, service stations, tire shops, and other auto repair locations near them. To do this, they can locate themselves on the map by tapping the "My Location" button. If the user's device doesn't have geolocation access, the app allows them to manually specify their estimated location. Using the "Search Radius" and "Max Results" sliders, they can select the search radius and number of service stations around the specified location. The "Clear Map" button removes all markers from the map.
+Tapping the "Settings" button displays a settings window where they can change their API key, password, or delete all app data.
+<div align="center">
+  <h3>Settings window</h3>
+  <img src="UiScreenshots/SettingsWindow.png" alt="Settings window design" >
+</div>
+When attempting to change the password, the user will be asked to enter the current password and a new one, which will be used for subsequent login attempts.
+<div align="center">
+  <h3>Change password window</h3>
+  <img src="UiScreenshots/ChangePasswordWindow.png" alt="Change password window design" >
+</div>
+To close the application, click on the cross in the upper right corner of the main window.
