@@ -29,3 +29,9 @@ Deskpot application developed in WPF, сreated to help people who are not famili
     - Json
     - LINQ
 ***
+## ⏳ Implementation process
+At start I prepared models, that will be use in the future. Set up them and connected with each other (added relationships). But I didn't know how to work with     APIs, so I haden't implemented models fot it (for now).
+
+Then I started implementing services for password hashing, data encryption, and file handling. When I had done that, I decided to create one service that would join them (ManageDataService).
+
+
