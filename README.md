@@ -69,10 +69,13 @@ At the end of development, minor bugs and errors were fixed, after which manual 
 - Improved understanding of the project structure.
 ***
 ## 🚀 How to run it
-1. Copy the repository to your computer (git clone "https://github.com/T-two-K/gear-fix.git" or download ZIP).
-2. If you have Visual Studio click to the file GearFix.csproj and then use shortcut "Ctrl + f5", if you don't have then open powershell (or other command line) and enter the following commands:
+1. Copy the repository to your computer (git clone "https://github.com/T-two-K/gear-fix.git" or download ZIP). If git - is unknown command inside of the powershell input the following command and, after the downloading complete, relaunch them:
 ```powershell
-  winget install Microsoft.DotNet.SDK.10
+  winget install --id Git.Git -e --source winget
+``` 
+3. If you have Visual Studio click to the file GearFix.csproj and then use shortcut "Ctrl + f5", if you don't have then open powershell (or other command line) and enter the following commands:
+```powershell
+  winget install Microsoft.DotNet.SDK.10 #relaunch powershell after completion
   cd gear-fix #(or full path to this folder, for example: C:/Users/user123/gear-fix)
   dotnet restore
   dotnet build
