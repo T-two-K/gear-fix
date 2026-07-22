@@ -69,7 +69,7 @@ At the end of development, minor bugs and errors were fixed, after which manual 
 - Improved understanding of the project structure.
 ***
 ## 🚀 How to run it
-1. Copy the repository to your computer (git clone "https://github.com/T-two-K/gear-fix.git" or download ZIP). If git - is unknown command inside of the powershell input the following command and, after the downloading complete, relaunch them:
+1. Copy the repository to your computer (git clone "https://github.com/T-two-K/gear-fix.git" or download ZIP). If git - is unknown command: inside of powershell input the following command and, after the downloading complete, relaunch them:
 ```powershell
   winget install --id Git.Git -e --source winget
 ``` 
